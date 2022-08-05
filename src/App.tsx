@@ -1,26 +1,99 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+import React, { useState } from "react";
+import { Modal } from "./components/Modal";
 
-function App() {
+export default function App() {
+  const initialValue = "";
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+  const [email, setEmail] = useState("");
+  const [estado, setEstado] = useState("Minas Gerais");
+  const [observacao, setObservacao] = useState("");
+  const [showElement, setShowElement] = useState(false);
+
+  const resetValues = () => {
+    setNome(initialValue);
+    setSobrenome(initialValue);
+    setEmail(initialValue);
+    setEstado("Minas Gerais");
+    setObservacao(initialValue);
+    setShowElement(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="form">
+        <div className="dados">
+          <label>Nome</label>
+          <input
+            className="input"
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+
+          <label>Sobrenome</label>
+          <input
+            className="input"
+            type="text"
+            value={sobrenome}
+            onChange={(e) => setSobrenome(e.target.value)}
+          />
+
+          <label>E-mail</label>
+          <input
+            className="input"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label> Estado</label>
+          <select
+            className="input"
+            onChange={(e) => setEstado(e.target.value)}
+            value={estado}
+          >
+            <option value="Minas Gerais">Minas Gerais</option>
+            <option value="São Paulo">São Paulo</option>
+          </select>
+          <label>
+            <br /> Observação
+          </label>
+          <textarea
+            className="input"
+            name="observacao"
+            value={observacao}
+            onChange={(e) => setObservacao(e.target.value)}
+          ></textarea>
+
+          <div className="container">
+            <input
+              type="submit"
+              value="Enviar"
+              onClick={() => setShowElement(true)}
+              className="button"
+            />
+            <input
+              type="reset"
+              value="Limpar"
+              onClick={resetValues}
+              className="button"
+              id="clean"
+            />
+          </div>
+        </div>
+      </div>
+
+      <Modal
+        nome={nome}
+        sobrenome={sobrenome}
+        estado={estado}
+        email={email}
+        observacao={observacao}
+        open={showElement}
+        onClose={resetValues}
+      />
     </div>
   );
 }
-
-export default App;

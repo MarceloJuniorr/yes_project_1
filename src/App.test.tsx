@@ -1,9 +1,17 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
 
-test('renders learn react link', () => {
+import App from "./App";
+
+it("Test by Nome", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const test = screen.getByText("Nome");
+  expect(test).toBeInTheDocument();
+});
+
+it("Test by Sobrenome", () => {
+  render(<App />);
+  const test = screen.getByText("Sobrenomes");
+  expect(test).toBeInTheDocument();
 });
