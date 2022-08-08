@@ -26,6 +26,7 @@ export default function App() {
         <div className="dados">
           <label>Nome</label>
           <input
+            name="nomeInput"
             className="input"
             type="text"
             value={nome}
