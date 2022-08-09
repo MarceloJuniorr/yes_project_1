@@ -38,7 +38,7 @@ it("Verifica campo Sobrenome", () => {
   expect(test).toBeInTheDocument();
 });
 
-it("Verifica campoemail", () => {
+it("Verifica campo e-mail", () => {
   render(<App />);
   const test = screen.getByText("E-mail");
   expect(test).toBeInTheDocument();
@@ -82,14 +82,14 @@ it('Verificando limpeza dos campos', () => {
   expect(screen.queryByDisplayValue(testValues[2])).not.toBeInTheDocument();
   expect(screen.queryByDisplayValue(testValues[3])).not.toBeInTheDocument();
   expect(screen.queryByDisplayValue(testValues[4])).not.toBeInTheDocument();
-
- })
+ });
 
 it('Testando Modal',  () => {
   const testValues = preencheCampos();
 
   const testText = 'Nome Completo:'+ testValues[0] + ' '+ testValues[1] + 'Estado:'+ testValues[3] + 'E-Mail: '+ testValues[2] + 'Observação: '+ testValues[4];
   const submitButton = screen.getByTestId('btnEnviar');
+  
   userEvent.click(submitButton);
 
   expect(screen.getByText(testText)).toBeInTheDocument();
@@ -98,10 +98,6 @@ it('Testando Modal',  () => {
 
   userEvent.click(btnCloseModal);
   expect(screen.queryByText(testText)).not.toBeInTheDocument();
-
-
-
-
 });
 
 
