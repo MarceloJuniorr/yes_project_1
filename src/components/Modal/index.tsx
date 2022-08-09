@@ -54,6 +54,7 @@ export function Modal({
               <br />
               Observação: <br /> {observacao} <br />
               <input
+                data-testid='closeModal'
                 type="button"
                 value="Fechar"
                 className="button"

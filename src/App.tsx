@@ -26,6 +26,7 @@ export default function App() {
         <div className="dados">
           <label>Nome</label>
           <input
+            data-testid='inputName'
             name="nomeInput"
             className="input"
             type="text"
@@ -35,6 +36,7 @@ export default function App() {
 
           <label>Sobrenome</label>
           <input
+            data-testid='inputSobrenome'
             className="input"
             type="text"
             value={sobrenome}
@@ -43,6 +45,7 @@ export default function App() {
 
           <label>E-mail</label>
           <input
+            data-testid='inputEmail'
             className="input"
             type="text"
             value={email}
@@ -51,6 +54,7 @@ export default function App() {
 
           <label> Estado</label>
           <select
+            data-testid='inputEstado'
             className="input"
             onChange={(e) => setEstado(e.target.value)}
             value={estado}
@@ -62,6 +66,7 @@ export default function App() {
             <br /> Observação
           </label>
           <textarea
+            data-testid='inputObservacao'
             className="input"
             name="observacao"
             value={observacao}
@@ -70,12 +75,14 @@ export default function App() {
 
           <div className="container">
             <input
+              data-testid='btnEnviar'
               type="submit"
               value="Enviar"
               onClick={() => setShowElement(true)}
               className="button"
             />
             <input
+              data-testid='btnLimpar'
               type="reset"
               value="Limpar"
               onClick={resetValues}
