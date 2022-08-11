@@ -1,6 +1,8 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { Modal } from "./components/Modal";
+import { Button } from "./components/Button";
+
 
 export default function App() {
   const initialValue = "";
@@ -74,13 +76,14 @@ export default function App() {
           ></textarea>
 
           <div className="container">
-            <input
-              data-testid='btnEnviar'
-              type="submit"
-              value="Enviar"
-              onClick={() => setShowElement(true)}
-              className="button"
+            <Button 
+                button= "Enviar"
+                type= "submit"
+                onClick= {() => setShowElement(true)}
+                testid= 'btnEnviar'
+            
             />
+            
             <input
               data-testid='btnLimpar'
               type="reset"
