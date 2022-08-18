@@ -4,7 +4,7 @@ import "./styles.css";
 interface IButton {
     button: string,
     type: string,
-    onClick: any,
+    onClick?: any,
     testid: string
 }
 

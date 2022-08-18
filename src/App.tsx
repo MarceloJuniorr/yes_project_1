@@ -1,110 +1,86 @@
 import "./styles.css";
-import React, { useState } from "react";
-import { Modal } from "./components/Modal";
-import { Button } from "./components/Button";
+import React, { useState, useEffect } from "react";
+import { Form } from "./components/form";
 
 
 export default function App() {
-  const initialValue = "";
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
-  const [email, setEmail] = useState("");
-  const [estado, setEstado] = useState("Minas Gerais");
-  const [observacao, setObservacao] = useState("");
-  const [showElement, setShowElement] = useState(false);
 
-  const resetValues = () => {
-    setNome(initialValue);
-    setSobrenome(initialValue);
-    setEmail(initialValue);
-    setEstado("Minas Gerais");
-    setObservacao(initialValue);
-    setShowElement(false);
-  };
+  const json = {
+    "success": true,
+    "message": "Ok!",
+    "data": {
+      "metadata": {
+        "objectclass": {
+          "uuid_objectclass": "4515a137-cfb6-4ee9-83d9-e2f92e12ac83",
+          "uuid": "4ef1fa29-729a-495e-a159-3aaf5e8b50f5",
+          "des": "Formulário de Contato",
+          "complement": "",
+          "fields": {
+            "firstname": {
+              "uuid": "47f1abeb-b6d4-4095-acde-4bf962e2bee0",
+              "column_json": "firstname",
+              "type": "STRING",
+              "display_text": {
+                "des": "Nome"
+              },
+              "read_only": false
+            },
+            "lastname": {
+              "uuid": "881cfdba-252c-457c-98a2-ef83a3f4286d",
+              "column_json": "lastname",
+              "type": "STRING",
+              "display_text": {
+                "des": "Sobrenome"
+              },
+              "read_only": false
+            },
+            "email": {
+              "uuid": "0e61f0cd-e31f-4264-83eb-268093c47de3",
+              "column_json": "email",
+              "type": "STRING",
+              "display_text": {
+                "des": "E-mail"
+              },
+              "read_only": false
+            },
+            "state": {
+              "uuid": "8071a913-cae2-4a26-bf9a-7fe06bde692c",
+              "column_json": "state",
+              "type": "SELECT",
+              "display_text": {
+                "des": "Estado"
+              },
+              "read_only": true
+            },
+            "obs": {
+              "uuid": "78b8efbd-ee59-41fb-81e3-cff52cd8046a",
+              "column_json": "obs",
+              "type": "TEXTAREA",
+              "display_text": {
+                "des": "Observação"
+              },
+              "read_only": false
+            }
+          }
+        }
+      }
+    }
+  }
 
+  const [object, setObject] = useState({});
+
+  useEffect(() => {
+    setObject(Object.values(json.data.metadata.objectclass.fields));
+    
+  }, []
+    
+  )
+  
   return (
     <div className="App">
       <div className="form">
-        <div className="dados">
-          <label>Nome</label>
-          <input
-            data-testid='inputName'
-            name="nomeInput"
-            className="input"
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-
-          <label>Sobrenome</label>
-          <input
-            data-testid='inputSobrenome'
-            className="input"
-            type="text"
-            value={sobrenome}
-            onChange={(e) => setSobrenome(e.target.value)}
-          />
-
-          <label>E-mail</label>
-          <input
-            data-testid='inputEmail'
-            className="input"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <label> Estado</label>
-          <select
-            data-testid='inputEstado'
-            className="input"
-            onChange={(e) => setEstado(e.target.value)}
-            value={estado}
-          >
-            <option value="Minas Gerais">Minas Gerais</option>
-            <option value="São Paulo">São Paulo</option>
-          </select>
-          <label>
-            <br /> Observação
-          </label>
-          <textarea
-            data-testid='inputObservacao'
-            className="input"
-            name="observacao"
-            value={observacao}
-            onChange={(e) => setObservacao(e.target.value)}
-          ></textarea>
-
-          <div className="container">
-            <Button 
-                button= "Enviar"
-                type= "submit"
-                onClick= {() => setShowElement(true)}
-                testid= 'btnEnviar'
-            
-            />
-            
-            <input
-              data-testid='btnLimpar'
-              type="reset"
-              value="Limpar"
-              onClick={resetValues}
-              className="button"
-              id="clean"
-            />
-          </div>
-        </div>
+            <Form object = {object}/>
       </div>
-
-      <Modal
-        nome={nome}
-        sobrenome={sobrenome}
-        estado={estado}
-        email={email}
-        observacao={observacao}
-        open={showElement}
-        onClose={resetValues}
-      />
     </div>
   );
 }

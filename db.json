@@ -1,0 +1,19 @@
+{
+    "forms": [
+        
+    ],
+    "states": [
+        {
+            "id": 1,
+            "name": "Minas Gerais"
+        },
+        {
+            "id": 2,
+            "name": "São Paulo"
+        }
+
+    ]
+}
+
+
+

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
+import { Button } from "../Button";
+
 
 interface IModal {
   nome: string;
@@ -26,6 +28,7 @@ export function Modal({
     setIsOpen(false);
     onClose();
   };
+  
 
   useEffect(() => {
     setIsOpen(open);
@@ -53,13 +56,13 @@ export function Modal({
               <br />
               <br />
               Observação: <br /> {observacao} <br />
-              <input
-                data-testid='closeModal'
-                type="button"
-                value="Fechar"
-                className="button"
-                onClick={handleOnClose}
-              />
+
+              <Button 
+                button= "Fechar"
+                type= "button"
+                onClick= {handleOnClose}
+                testid= 'closeModal'
+            />
             </p>
           </div>
         </div>
