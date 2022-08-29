@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./styles.css";
 
 interface ITextarea {
@@ -10,12 +10,13 @@ interface ITextarea {
 
 export function Textarea ({ text, name, handleOnChange,value }: ITextarea) {
 
-    const onChange = () => {
+    const onChange = (value: ChangeEvent) => {
         if(handleOnChange){
-            handleOnChange()
+            let inputName = (value.target as HTMLInputElement).name ;
+            let inputValue = (value.target as HTMLInputElement).value;
+            handleOnChange(inputName, inputValue)
         }
     }
-
     return ( 
         <div>
             <label htmlFor={name}>{text}</label>

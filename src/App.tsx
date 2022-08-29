@@ -1,6 +1,7 @@
 import "./styles.css";
 import React, { useState, useEffect } from "react";
 import { Form } from "./components/form";
+import { Modal } from "./components/Modal";
 
 
 export default function App() {
@@ -68,19 +69,36 @@ export default function App() {
   }
 
   const [object, setObject] = useState({});
+  const [open, setIsOpen] = useState(false);
+  const [modalObject, setModalObject] = useState ({});
+
+  const openModal = (user: Object) => {
+    setIsOpen(true)
+    setModalObject(user)
+
+}
+const closeModal = () => {
+  setIsOpen(false)
+
+
+}
 
   useEffect(() => {
     setObject(Object.values(json.data.metadata.objectclass.fields));
     
   }, []
-    
-  )
+  );
   
   return (
     <div className="App">
       <div className="form">
-            <Form object = {object}/>
+
+
+
+              <Form object = {object} handleOnSubmit = {openModal} />
       </div>
+
+            <Modal text={modalObject} open = {open} onClose={closeModal}/>
     </div>
   );
 }

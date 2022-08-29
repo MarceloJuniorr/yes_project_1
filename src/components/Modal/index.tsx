@@ -4,21 +4,13 @@ import { Button } from "../Button";
 
 
 interface IModal {
-  nome: string;
-  sobrenome: string;
-  estado: string;
-  email: string;
-  observacao: string;
+  text: object;
   open: boolean;
-  onClose: any;
+  onClose?: Function;
 }
 
 export function Modal({
-  nome,
-  sobrenome,
-  estado,
-  email,
-  observacao,
+  text,
   open,
   onClose
 }: IModal) {
@@ -26,13 +18,16 @@ export function Modal({
 
   const handleOnClose = () => {
     setIsOpen(false);
-    onClose();
+    if(onClose){onClose()}
   };
   
 
   useEffect(() => {
     setIsOpen(open);
+
   }, [open]);
+
+
 
   // não retornar div vazia
   return (
@@ -41,21 +36,13 @@ export function Modal({
         <div className="modal">
           <div>
             <h2>Alert</h2>
-            <p>
-              Nome Completo:
-              <br />
-              {nome} {sobrenome}
-              <br />
-              <br />
-              Estado:
-              <br />
-              {estado}
-              <br />
-              <br />
-              E-Mail: <br /> {email}
-              <br />
-              <br />
-              Observação: <br /> {observacao} <br />
+            
+              {
+                Object.values(text).map((value, index) => {
+                  return (<div key= {index}>{value}</div>)
+                }) 
+              }
+            
 
               <Button 
                 button= "Fechar"
@@ -63,7 +50,7 @@ export function Modal({
                 onClick= {handleOnClose}
                 testid= 'closeModal'
             />
-            </p>
+
           </div>
         </div>
       )}

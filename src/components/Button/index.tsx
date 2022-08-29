@@ -11,6 +11,7 @@ interface IButton {
 
 export function Button ({ button, type, onClick, testid }: IButton) {
     const handleOnClick = () => {
+        if(onClick)
         onClick();
     }
 

@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./styles.css";
 
 interface IInput {
     text: string,
      type: string, 
      name: string, 
-     handleOnChange?: any,
+     handleOnChange?: Function,
      value?: string,
      placeholder: string
 }
 
 export function Input ({ text, type, name, handleOnChange,value, placeholder }: IInput) {
 
-    const onChange = () => {
+    const onChange = (value: ChangeEvent) => {
         if(handleOnChange){
-            handleOnChange()
+            let inputName = (value.target as HTMLInputElement).name ;
+            let inputValue = (value.target as HTMLInputElement).value;
+            handleOnChange(inputName, inputValue)
         }
     }
 
@@ -28,7 +30,7 @@ export function Input ({ text, type, name, handleOnChange,value, placeholder }: 
             id={name}
             placeholder={placeholder}
             value={value}
-            onChange={onChange}
+            onChange={(value) => onChange(value)}
           />
         </div>
 

@@ -1,46 +1,65 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import "./styles.css";
 import { Input } from "../Input"
 import { Button } from "../Button";
 import { Select } from "../SelectList";
 import { Textarea } from "../Textarea";
+import { Modal } from "../Modal";
 
 
 
 interface IForm {
      name?: string, 
      handleOnSubmit?: any,
-     object: object
+     object: object,
 }
 
-export function Form ({name, handleOnSubmit, object }: IForm) {
-    const [values, setValues] = useState({})
+export function Form ({name, handleOnSubmit, object}: IForm) {
+
+    const [user, setUser] = useState({})
 
 
-    const onSubmit = () => {
+
+    const submit = (e: SyntheticEvent) => {
+        e.preventDefault()
         if(handleOnSubmit){
-            handleOnSubmit()
-        }
+            handleOnSubmit(user)
+        }   
+    }
+
+    const handleChange= (name: string, value: string) => {
+
+        setUser({...user, [name]: value})
+
+
+
+
     }
 
     useEffect(() => { }, [])
 
     return ( 
-        <form action="" className="dados">
+        <form onSubmit={submit} className="dados" key='form'>
 
 
             {Object.entries(object).map(([index, data]) => {
 
                 if (data.type == "STRING" || data.type == "TEXT") {
             return (
-                <Input 
-                type="text"
-                text={data.display_text.des}  
-                name={data.column_json}
-                placeholder={data.display_text.des}
-                />
+                <div key= {index} >
+
+                    <Input 
+                    type="text"
+                    text={data.display_text.des}  
+                    name={data.column_json}
+                    placeholder={data.display_text.des}
+                    handleOnChange={handleChange}
+                    />
+
+                </div>
             );
-                } else if (data.type == "SELECT") {
+                } 
+                else if (data.type == "SELECT") {
                     let options = [
                         {
                             "id": 1,
@@ -53,30 +72,42 @@ export function Form ({name, handleOnSubmit, object }: IForm) {
                 
                     ]
                             return (
-                                <Select 
-                                name={data.column_json}
-                                text={data.display_text.des}
-                                options={options}
-                                />
+
+                                <div key={index}>
+                                    <Select 
+                                    name={data.column_json}
+                                    text={data.display_text.des}
+                                    options={options}
+                                    handleOnChange={handleChange}
+
+                                    />
+                                    
+                                </div>
                             )
-                    } else if (data.type == "TEXTAREA") {
+                    } 
+                    else if (data.type == "TEXTAREA") {
                         return (
-                            <Textarea 
-                            text={data.display_text.des}  
-                            name={data.column_json}
-                            />
+
+                            <div key={index}>
+
+                                <Textarea 
+                                text={data.display_text.des}  
+                                name={data.column_json}
+                                handleOnChange={handleChange}
+                                />
+                            </div>
                         )
                     }
                     
+            
                     
                 }
           )}
 
-            <div className="container">
+            <div className="container" key="container">
             <Button 
                 button= "Enviar"
                 type= "submit"
-                onClick=  ""
                 testid= 'btnEnviar'
             
             />
@@ -90,6 +121,8 @@ export function Form ({name, handleOnSubmit, object }: IForm) {
             </div>
 
         </form>
+
+        
 
     );
 }
